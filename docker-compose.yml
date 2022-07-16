@@ -1,0 +1,87 @@
+version: '3.7'
+
+services:
+    php:
+        container_name: ${PROJECT_NAME}_laravel_php
+        build: ./docker/config/php
+        image: ${PROJECT_NAME}_laravel_image
+        depends_on:
+            - postgres
+        volumes:
+            - ${BACKEND_VOLUME}:/application:cached
+            - ${FRONTEND_VOLUME}:/frontend:cached
+            - file_storage_volume:/file-storage
+            - ./docker/config/php/php.ini:/usr/local/etc/php/php.ini
+        ports:
+            - "8090:8080"
+#        networks:
+#            - language_shcool_network
+
+    nginx:
+        container_name: ${PROJECT_NAME}_nginx
+        image: nginx:latest
+        ports:
+            - "8000:8000"
+            - "8001:8001"
+            - "8002:8002"
+        volumes:
+            - ./docker/config/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:cached
+            - ${BACKEND_VOLUME}:/application:cached
+            - ./docker/server/nginx/:/var/log/nginx
+            - ${FRONTEND_VOLUME}:/frontend:cached
+            - file_storage_volume:/file-storage
+        depends_on:
+            - php
+#        networks:
+#            - language_shcool_network
+
+    postgres:
+        container_name: ${PROJECT_NAME}_postgres
+        image: postgres:latest
+        command: postgres -c 'max_connections=500'
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DATABASE}
+            TZ: "Asia/Yekaterinburg"
+        volumes:
+            - postgres_volume:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+#        networks:
+#            - language_shcool_network
+
+    frontend:
+        container_name: ${PROJECT_NAME}_vue_spa
+        build: frontend
+        image: ${PROJECT_NAME}_vue_image
+        command: npm run serve
+        environment:
+            PORT: "8080"
+            HOST: "0.0.0.0"
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./frontend:/frontend
+            - /frontend/node_modules
+#        networks:
+#            - language_shcool_network
+
+#    redis:
+#        container_name: ${PROJECT_NAME}_redis
+#        image: redis:latest
+#        ports:
+#            - 6379:6379
+#        command:
+#            - 'redis-server'
+#            - '--save 900 1'
+#            - '--save 300 10'
+#            - '--save 60 10000'
+#        volumes:
+#            - ${REDIS_VOLUME}:/data
+#        networks:
+#            - language_shcool_network
+
+volumes:
+    postgres_volume:
+    file_storage_volume:

@@ -5,6 +5,19 @@ const randArray = array => {
 	return array[randNum]
 }
 
+const typeTask = successCounter => {
+	switch (successCounter) {
+		case 1:
+			return 'translation'
+		case 2:
+			return 'input'
+		case 4:
+			return 'translation'
+		default:
+			return 'original'
+	}
+}
+
 function getAllAnswers(dictionaries, type='translation') {
 	if (!isArray(dictionaries)) {
 		throw new Error('dictionaries are not on Array')
@@ -54,21 +67,20 @@ function setAnswers (words, basic, count = 5) {
 }
 
 function typeAnswers(currentTask) {
-	let lang = 'original'
-	if (Number(currentTask.successCounter) === 1) {
-		lang = 'translation'
-	}
-	if (Number(currentTask.successCounter) === 3) {
-		lang = 'translation'
+	const type = typeTask(currentTask.successCounter)
+
+	currentTask = {
+		...currentTask,
+		type
 	}
 
-	if (lang === 'translation') {
+	if (type === 'translation') {
 		let tempWord = currentTask.word
 		return {
 			...currentTask,
 			word: currentTask.translation,
 			translation: tempWord,
-			type: 'translation'
+			type
 		}
 	}
 

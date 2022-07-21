@@ -19,6 +19,7 @@
 				<VTask
 					v-if="isPractice"
 					@onAnswerClick="onAnswerClick"
+					@onAnswerInput="onAnswerInput"
 				/>
 				<FinishedTasks v-else-if="isFinished"/>
 			</div>
@@ -175,13 +176,13 @@ export default {
 
         const onNextTask = () => {
             if (count.value === maxCount || wordsInStudies.value.length === 0) {
-                return onFinishedTask();
+                return onFinishedTask()
             }
 
-            resetValues();
-            currentTask.value = wordsInStudies.value.shift();
-            currentTask.value = collectQuestions(tasks, currentTask.value);
-            return currentTask.value;
+            resetValues()
+            currentTask.value = wordsInStudies.value.shift()
+            currentTask.value = collectQuestions(tasks, currentTask.value)
+            return currentTask.value
         };
 
         const onStartedPractice = () => {
@@ -226,7 +227,9 @@ export default {
 
         const onAnswerClick = word => isActiveAnswer.value = word;
 
-        const onCheckAnswer = (task) => {
+        const onAnswerInput = word => isActiveAnswer.value = word;
+
+        const onCheckAnswer = task => {
             const answer = isActiveAnswer.value.toLowerCase().trim();
             const translation = currentTask.value.translation.toLowerCase().trim();
 
@@ -278,6 +281,7 @@ export default {
             onStartedPractice,
             onFinishedTask,
             onAnswerClick,
+            onAnswerInput,
             onCheckAnswer,
         };
     },

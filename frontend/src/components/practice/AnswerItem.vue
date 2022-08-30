@@ -1,4 +1,6 @@
 <template>
+	<pre>isActiveAnswer {{ isActiveAnswer }}</pre>
+
 	<li
 		class="btn btn-outline-info me-3"
 		:class="[{'active': isActiveAnswer === answer}]"
@@ -9,17 +11,18 @@
 </template>
 
 <script>
-import {inject} from 'vue';
 
 export default {
-	props: ['answer'],
-	emits: ['onAnswerClick'],
+  props: ['answer'],
+  emits: ['onAnswerClick'],
+  inject: ['isActiveAnswer'],
 
-	setup () {
-		return {
-			isActiveAnswer: inject('isActiveAnswer')
-		}
-	}
+  methods: {
+    onAnswerClick (value) {
+      console.log('onAnswerClick value', value)
+      this.$emit('onAnswerClick', value)
+    }
+  }
 }
 </script>
 

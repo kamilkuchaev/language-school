@@ -27,20 +27,19 @@
         <button class="btn btn-primary">Создать новый словарь</button>
     </router-link>
 
-
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
-    name: "Dictionaries",
+  name: 'Dictionaries',
 
-    computed: {
-        ...mapGetters('user', {
-            dictionaries: 'dictionaries',
-        })
-    }
+  computed: {
+    ...mapGetters({
+      dictionaries: 'user/dictionaries'
+    })
+  }
 }
 </script>
 

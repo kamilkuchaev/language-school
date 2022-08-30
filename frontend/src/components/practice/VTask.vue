@@ -1,27 +1,30 @@
 <template>
-	<div v-if="false">
+	<div v-if="true">
 		<p>Выберите верный вариант</p>
 		<p class="fs-2" :style="{color: 'green', fontWeight: 'bold'}">{{ task.word }}</p>
 
 		<ul class="d-flex align-items-center ps-0">
-			<AnswerItem
+			<li
 				v-for="(answer, index) in task.answers" :key="index"
-				:answer="answer"
-				@onAnswerClick="onAnswerClick"
-			/>
+				class="btn btn-outline-info me-3"
+				:class="[{'active': isActiveAnswer === answer}]"
+				@click="$emit('onAnswerClick', answer)"
+			>
+				{{ answer }}
+			</li>
 		</ul>
 	</div>
 
-	<div v-if="true" class="mb-3">
+	<div v-if="false" class="mb-3">
 		<p>Напишите перевод</p>
 		<p class="fs-2" :style="{color: 'green', fontWeight: 'bold'}">{{ task.word }}</p>
 
-		<input
-			type="text"
-			class="form-control"
-			v-model="isActiveAnswer"
-			ref="refAnswerInput"
-		>
+<!--		<input-->
+<!--			type="text"-->
+<!--			class="form-control"-->
+<!--			v-model="isActiveAnswer"-->
+<!--			ref="refAnswerInput"-->
+<!--		>-->
 	</div>
 
 	<div v-if="hasCheckAnswer">
@@ -31,41 +34,35 @@
 </template>
 
 <script>
-import AnswerItem from './AnswerItem'
-import {inject, ref, onMounted} from 'vue'
 
-const type = 'answerInput'
+// const type = 'answerInput'
 
 export default {
-	name: 'VTask',
-	components: {AnswerItem},
-	emits: ['onAnswerClick'],
+  name: 'VTask',
+  emits: ['onAnswerClick', 'onAnswerInput'],
+  props: ['isActiveAnswer'],
+  inject: ['task', 'hasRightAnswer', 'hasCheckAnswer'],
 
-	setup (_, {emit}) {
-        const refAnswerInput = ref(null)
-		const onAnswerClick = value => {
-			emit('onAnswerClick', value)
-		}
+  data () {
+	  return {
+		  refAnswerInput: null
+	  }
+  },
 
-        function focusOnInput() {
-            refAnswerInput.value.focus()
-        }
+  mounted () {
+    // if (type === 'answerInput' && this.refAnswerInput) {
+    //   this.focusOnInput()
+    // }
+  },
 
-        onMounted(() => {
-            if (type === 'answerInput' && refAnswerInput.value) {
-                focusOnInput()
-            }
-		})
-
-		return {
-            task: inject('task'),
-            hasRightAnswer: inject('hasRightAnswer'),
-            hasCheckAnswer: inject('hasCheckAnswer'),
-            isActiveAnswer: inject('isActiveAnswer'),
-            onAnswerClick,
-            refAnswerInput
-		}
-	}
+  methods: {
+    focusOnInput () {
+      this.refAnswerInput.focus()
+    },
+    onAnswerClick (value) {
+      this.$emit('onAnswerClick', value)
+    }
+  }
 }
 
 </script>

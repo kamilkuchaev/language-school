@@ -1,18 +1,18 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from '@/views/Home'
-import Practice from "@/views/Practice"
-import Login from "@/views/auth/Login"
-import Register from "@/views/auth/Register"
-import DictionaryOne from "@/views/dictionaries/DictionaryOne"
-import Dictionaries from "@/views/dictionaries/Dictionaries"
-import DictionaryCreate from "@/views/dictionaries/DictionaryCreate"
-import Account from "@/views/account/Index"
+import Practice from '@/views/Practice'
+import Login from '@/views/auth/Login'
+import Register from '@/views/auth/Register'
+import DictionaryOne from '@/views/dictionaries/DictionaryOne'
+import Dictionaries from '@/views/dictionaries/Dictionaries'
+import DictionaryCreate from '@/views/dictionaries/DictionaryCreate'
+import Account from '@/views/account/Index'
 import AccountGroups from '@/views/account/Groups'
 import AccountAchievements from '@/views/account/Achievements'
 
 const routes = [
-  {name: 'home', path: '/', component: Home},
+  { name: 'home', path: '/', component: Home },
   {
     name: 'practiceTest',
     path: '/practiceTest',
@@ -24,8 +24,8 @@ const routes = [
     component: Practice,
     props: true
   },
-  {name: 'login', path: '/login', component: Login},
-  {name: 'register', path: '/register', component: Register},
+  { name: 'login', path: '/login', component: Login },
+  { name: 'register', path: '/register', component: Register },
   {
     name: 'account',
     path: '/account',
@@ -35,33 +35,33 @@ const routes = [
       {
         name: 'details',
         path: 'details',
-        component: () => import('@/views/account/Details'),
+        component: () => import('@/views/account/Details')
       },
       {
         name: 'dictionariesNew',
         path: 'dictionaries_new',
-        component: () => import('@/views/account/Dictionaries'),
+        component: () => import('@/views/account/Dictionaries')
       },
       {
         name: 'groups',
         path: 'groups',
-        component: AccountGroups,
+        component: AccountGroups
       },
       {
         name: 'achievements',
         path: 'achievements',
-        component: AccountAchievements,
+        component: AccountAchievements
       }
     ]
   },
-  {name: 'dictionaries', path: '/dictionaries', component: Dictionaries},
-  {name: 'dictionaryOne', path: '/dictionaryOne/:id', component: DictionaryOne, props: true},
-  {name: 'dictionaryCreate', path: '/dictionaryCreate', component: DictionaryCreate},
+  { name: 'dictionaries', path: '/dictionaries', component: Dictionaries },
+  { name: 'dictionaryOne', path: '/dictionaryOne/:id', component: DictionaryOne, props: true },
+  { name: 'dictionaryCreate', path: '/dictionaryCreate', component: DictionaryCreate }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes,
-});
+  routes: routes
+})
 
-export default router;
+export default router

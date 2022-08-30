@@ -5,16 +5,16 @@
 </template>
 
 <script>
-import { inject } from 'vue';
+import { inject } from 'vue'
 
 export default {
-	setup() {
-		return {
-            finishResults: inject('finishResults'),
-			count: inject('count'),
-            successCount: inject('successCount'),
-		}
-	}
+  setup () {
+    return {
+      finishResults: inject('finishResults'),
+      count: inject('count'),
+      successCount: inject('successCount')
+    }
+  }
 }
 </script>
 

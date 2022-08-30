@@ -1,5 +1,22 @@
-[*.{js,jsx,ts,tsx,vue}]
-indent_style = space
-indent_size = 2
-trim_trailing_whitespace = true
+# Корневой файл EditorConfig
+root = true
+
+[*]
+charset = utf-8
+
+#indent_style = space
+#indent_size = 2
+# Используем табы для отступов (Не указываем размер)
+indent_style = tab
+
+# Для всех файлов используем unix-совместимые переносы строк
+end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
+
+[{*.js, vue}]
+ij_javascript_force_semicolon_style = false
+
+[*.md]
+insert_final_newline = false
+trim_trailing_whitespace = false

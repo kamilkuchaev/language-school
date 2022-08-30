@@ -15,5 +15,6 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-tabs': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-mixed-spaces-and-tabs': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'operator-linebreak': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   }
 }

@@ -167,6 +167,8 @@ export default {
 		  }
 		  return task
 	  })
+
+	  console.log('this.tasks', this.tasks)
   },
 
   computed: {
@@ -189,10 +191,6 @@ export default {
 	  },
 
 	  onNextTask () {
-		  console.log('this.count', this.count)
-		  console.log('this.maxCount', this.maxCount)
-		  console.log('this.wordsInStudies', this.wordsInStudies)
-
 		  if (this.count === this.maxCount || this.wordsInStudies.length === 0) {
 			  return this.onFinishedTask()
 		  }
